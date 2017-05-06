@@ -1,10 +1,12 @@
-package reco_query.mapper;
+package reco_query.mapper.mappers;
 
 import lombok.Getter;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
-import reco_query.entity.MethodEntity;
-import reco_query.entity.utils.MapperUtils;
+import reco_query.entity.Entity;
+import reco_query.entity.entities.MethodEntity;
+import reco_query.mapper.Mapper;
+import reco_query.mapper.utils.MapperUtils;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,7 +15,7 @@ import java.util.Map;
 /**
  * Created by liwp on 2017/5/3.
  */
-public class WordToMethodMapper implements Mapper{
+public class WordToRefMapper implements Mapper {
 
     private final GraphDatabaseService graphDb;
     private final int upperLengthLimit = 15;
@@ -21,9 +23,9 @@ public class WordToMethodMapper implements Mapper{
 
     private Map<String, Integer> wordMap = new HashMap<>();
     @Getter
-    private Map<String, Map<MethodEntity, Integer>> wordToMethodMap = new HashMap<>();
+    private Map<String, Map<Entity, Integer>> wordToMethodMap = new HashMap<>();
 
-    public WordToMethodMapper(final GraphDatabaseService graphDb) {
+    public WordToRefMapper(final GraphDatabaseService graphDb) {
         this.graphDb = graphDb;
     }
 
@@ -40,16 +42,16 @@ public class WordToMethodMapper implements Mapper{
         try (Transaction tx = graphDb.beginTx()) {
             graphDb.getAllNodes().stream().forEach(node -> {
                 if(MapperUtils.checkNodeLabel(node, "StackOverflow") && node.getProperties("body").size() > 0) {
-                    Collection<MethodEntity> methodEntities = MapperUtils.getRefMethods(node);
+                    Collection<Entity> refEntities = MapperUtils.getRefs(node);
                     Collection<String> words = MapperUtils.getBodyWords(node);
                     words.forEach(word -> {
-                        Map<MethodEntity, Integer> wordToMethods = wordToMethodMap.get(word);
+                        Map<Entity, Integer> wordToMethods = wordToMethodMap.get(word);
                         if(wordToMethods != null) {
-                            methodEntities.forEach(method -> {
-                                if (wordToMethods.containsKey(method)) {
-                                    wordToMethods.put(method, wordToMethods.get(method) + 1);
+                            refEntities.forEach(entity -> {
+                                if (wordToMethods.containsKey(entity)) {
+                                    wordToMethods.put(entity, wordToMethods.get(entity) + 1);
                                 } else {
-                                    wordToMethods.put(method, 1);
+                                    wordToMethods.put(entity, 1);
                                 }
                             });
                         }
@@ -61,7 +63,6 @@ public class WordToMethodMapper implements Mapper{
     }
 
     private void buildWordMap() {
-        wordMap = new HashMap<>();
         try (Transaction tx = graphDb.beginTx()) {
             graphDb.getAllNodes().stream().forEach(node -> {
                 if(MapperUtils.checkNodeLabel(node, "StackOverflow") && (node.getProperties("body").size() > 0)) {

@@ -1,11 +1,12 @@
-package reco_query.entity;
+package reco_query.entity.entities;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.Relationship;
 import org.neo4j.graphdb.RelationshipType;
-import reco_query.entity.utils.MapperUtils;
+import reco_query.entity.Entity;
+import reco_query.mapper.utils.MapperUtils;
 
 import java.util.Iterator;
 
@@ -14,13 +15,23 @@ import java.util.Iterator;
  */
 @Getter
 @Setter
-public class StackoverflowEntity {
+public class StackoverflowEntity extends Entity {
     private String questionTitle = "";
     private String questionBody = "";
     private int answerScore = 0;
     private String answerBody = "";
 
-    public void buildFromMethodNode(Node methodNode) {
+    @Override
+    public void build(Node node) {
+        buildFromMethodNode(node);
+    }
+
+    @Override
+    public String displayName() {
+        return "Question: " + questionTitle;
+    }
+
+    private void buildFromMethodNode(Node methodNode) {
         if(methodNode.getRelationships(RelationshipType.withName("docRef")).iterator().hasNext()) {
             Node soNode = methodNode.getRelationships(RelationshipType.withName("docRef")).iterator().next().getStartNode();
             if(MapperUtils.checkNodeLabel(soNode, "StackOverflowQuestion")) {

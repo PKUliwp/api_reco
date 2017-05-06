@@ -4,7 +4,7 @@ import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.RelationshipType;
 import org.neo4j.graphdb.Transaction;
 import org.neo4j.graphdb.factory.GraphDatabaseFactory;
-import reco_query.entity.utils.MapperUtils;
+import reco_query.mapper.utils.MapperUtils;
 
 import java.io.File;
 

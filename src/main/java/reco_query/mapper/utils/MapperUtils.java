@@ -1,9 +1,12 @@
-package reco_query.entity.utils;
+package reco_query.mapper.utils;
 
 import org.neo4j.graphdb.Label;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.RelationshipType;
-import reco_query.entity.MethodEntity;
+import reco_query.entity.Entity;
+import reco_query.entity.entities.ClassEntity;
+import reco_query.entity.entities.InterfaceEntity;
+import reco_query.entity.entities.MethodEntity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,6 +48,14 @@ public class MapperUtils {
         return methodName;
     }
 
+    public static Collection<Entity> getRefs(Node node) {
+        Collection<Entity> refEntities = new ArrayList<>();
+        refEntities.addAll(getRefMethods(node));
+        refEntities.addAll(getRefClasses(node));
+        refEntities.addAll(getRefInterfaces(node));
+        return refEntities;
+    }
+
     public static Collection<MethodEntity> getRefMethods(Node node) {
         Collection<MethodEntity> methodEntities = new ArrayList<>();
         node.getRelationships(RelationshipType.withName("docRef")).forEach(relationship -> {
@@ -57,10 +68,46 @@ public class MapperUtils {
         return methodEntities;
     }
 
+    public static Collection<ClassEntity> getRefClasses(Node node) {
+        Collection<ClassEntity> classEntities = new ArrayList<>();
+        node.getRelationships(RelationshipType.withName("docRef")).forEach(relationship -> {
+            Node srcNode = relationship.getEndNode();
+            if(checkNodeLabel(srcNode, "Class")){
+                ClassEntity classEntity = buildClass(srcNode);
+                classEntities.add(classEntity);
+            }
+        });
+        return classEntities;
+    }
+
+    public static Collection<InterfaceEntity> getRefInterfaces(Node node) {
+        Collection<InterfaceEntity> interfaceEntities = new ArrayList<>();
+        node.getRelationships(RelationshipType.withName("docRef")).forEach(relationship -> {
+            Node srcNode = relationship.getEndNode();
+            if(checkNodeLabel(srcNode, "Interface")) {
+                InterfaceEntity interfaceEntity = buildInterface(srcNode);
+                interfaceEntities.add(interfaceEntity);
+            }
+        });
+        return interfaceEntities;
+    }
+
     public static MethodEntity buildMethod(Node node) {
         MethodEntity oneMethodEntity = new MethodEntity();
-        oneMethodEntity.buildFromNode(node);
+        oneMethodEntity.build(node);
         return oneMethodEntity;
+    }
+
+    public static ClassEntity buildClass(Node node) {
+        ClassEntity oneClassEntity = new ClassEntity();
+        oneClassEntity.build(node);
+        return oneClassEntity;
+    }
+
+    public static InterfaceEntity buildInterface(Node node) {
+        InterfaceEntity oneInterfaceEntity = new InterfaceEntity();
+        oneInterfaceEntity.build(node);
+        return oneInterfaceEntity;
     }
 
     public static boolean checkNodeLabel(Node node, String target) {
