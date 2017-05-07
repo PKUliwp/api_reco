@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Transaction;
 import reco_query.entity.Entity;
-import reco_query.entity.entities.MethodEntity;
 import reco_query.mapper.Mapper;
 import reco_query.mapper.utils.MapperUtils;
 

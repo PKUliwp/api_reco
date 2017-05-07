@@ -1,15 +1,23 @@
 package reco_query.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.neo4j.graphdb.Node;
-import reco_query.entity.entities.MethodEntity;
 
 /**
  * Created by liwp on 2017/5/6.
  */
-public abstract class Entity {
+@Setter
+@Getter
+public abstract class Entity implements Comparable<Entity>{
 
     abstract public void build(Node node);
     abstract public String displayName();
+    public String prefix() {return "";}
+    public String suffix() {return "";}
+    public String name() {return "";}
+
+    private Integer times = 0;
 
     @Override
     public int hashCode() {
@@ -26,5 +34,10 @@ public abstract class Entity {
             return this.displayName().equals(entity.displayName());
         }
         return false;
+    }
+
+    @Override
+    public int compareTo(Entity e) {
+        return e.getTimes().compareTo(this.getTimes());
     }
 }

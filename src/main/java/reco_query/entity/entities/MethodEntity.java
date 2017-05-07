@@ -21,6 +21,21 @@ public class MethodEntity extends Entity {
     private StackoverflowEntity refSoEntity;
 
     @Override
+    public String prefix() {
+        return belongTo;
+    }
+
+    @Override
+    public String suffix() {
+        return rt;
+    }
+
+    @Override
+    public String name() {
+        return name+"("+params +")";
+    }
+
+    @Override
     public void build(Node node) {
         buildFromNode(node);
     }
@@ -42,19 +57,15 @@ public class MethodEntity extends Entity {
     }
 
     @Override
-    public int hashCode() {
-        return this.displayName().hashCode();
-    }
-
-    @Override
-    public boolean equals(Object anObject) {
-        if (this == anObject) {
-            return true;
+    public int compareTo(Entity e) {
+        if(e instanceof MethodEntity) {
+            if(e.getTimes() != this.getTimes()) {
+                return e.getTimes().compareTo(this.getTimes());
+            } else {
+                return e.displayName().compareTo(this.displayName());
+            }
+        } else {
+            return -1;
         }
-        if (anObject instanceof MethodEntity) {
-            MethodEntity methodEntity = (MethodEntity) anObject;
-            return this.displayName().equals(methodEntity.displayName());
-        }
-        return false;
     }
 }
