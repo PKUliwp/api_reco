@@ -4,7 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.neo4j.graphdb.Node;
 import reco_query.entity.Entity;
+import reco_query.factory.StaticValueFactory;
 import reco_query.mapper.utils.MapperUtils;
+
+import java.util.Arrays;
 
 /**
  * Created by liwp on 2017/5/3.
@@ -33,6 +36,21 @@ public class MethodEntity extends Entity {
     @Override
     public String name() {
         return name+"("+params +")";
+    }
+
+    @Override
+    public String urlPath() {
+        StringBuilder urlBuilder = new StringBuilder();
+        urlBuilder.append(StaticValueFactory.LUCENE_CORE_BASEURL);
+        String packageSegments[] = prefix().split("\\.");
+        String paramSegments[] = params.split(",");
+        Arrays.stream(packageSegments).forEach(packageName -> urlBuilder.append("/" + packageName));
+        urlBuilder
+                .append(".html#")
+                .append(name)
+                .append("-");
+        Arrays.stream(paramSegments).forEach(paramsName -> urlBuilder.append(paramsName.trim() + "-"));
+        return urlBuilder.toString();
     }
 
     @Override

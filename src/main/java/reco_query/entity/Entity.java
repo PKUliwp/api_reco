@@ -13,9 +13,12 @@ public abstract class Entity implements Comparable<Entity>{
 
     abstract public void build(Node node);
     abstract public String displayName();
+
     public String prefix() {return "";}
     public String suffix() {return "";}
     public String name() {return "";}
+
+    public String urlPath() {return "";}
 
     private Integer times = 0;
 

@@ -1,23 +1,21 @@
 Manifest-Version: 1.0
-Class-Path: neo4j-udc-3.1.0-BETA1.jar lucene-backward-codecs-5.5.0.jar
-  neo4j-cypher-frontend-2.3-2.3.7.jar neo4j-graph-matching-3.1.0-BETA1
- .jar neo4j-cypher-compiler-3.0-3.0.6.jar neo4j-unsafe-3.1.0-BETA1.jar
-  neo4j-common-3.1.0-BETA1.jar neo4j-command-line-3.1.0-BETA1.jar neo4
- j-cypher-frontend-3.0-3.0.6.jar neo4j-cypher-3.1.0-BETA1.jar neo4j-cy
- pher-compiler-2.3-2.3.7.jar neo4j-resource-3.1.0-BETA1.jar caffeine-2
- .3.3.jar neo4j-logging-3.1.0-BETA1.jar neo4j-lucene-index-3.1.0-BETA1
- .jar opencsv-2.3.jar neo4j-graph-algo-3.1.0-BETA1.jar commons-compres
- s-1.12.jar neo4j-3.1.0-BETA1.jar scala-reflect-2.11.8.jar parboiled-c
- ore-1.1.7.jar neo4j-dbms-3.1.0-BETA1.jar concurrentlinkedhashmap-lru-
- 1.4.2.jar neo4j-primitive-collections-3.1.0-BETA1.jar lucene-codecs-5
- .5.0.jar neo4j-cypher-compiler-3.1-3.1.0-BETA1.jar neo4j-graphdb-api-
- 3.1.0-BETA1.jar parboiled-scala_2.11-1.1.7.jar neo4j-io-3.1.0-BETA1.j
- ar scala-library-2.11.8.jar lucene-core-5.5.0.jar lombok-1.16.16.jar 
- neo4j-lucene-upgrade-3.1.0-BETA1.jar neo4j-csv-3.1.0-BETA1.jar neo4j-
- codegen-3.1.0-BETA1.jar lucene-analyzers-common-5.5.0.jar asm-5.0.4.j
- ar neo4j-import-tool-3.1.0-BETA1.jar commons-lang3-3.3.2.jar neo4j-cy
- pher-frontend-3.1-3.1.0-BETA1.jar neo4j-kernel-3.1.0-BETA1.jar neo4j-
- consistency-check-3.1.0-BETA1.jar neo4j-jmx-3.1.0-BETA1.jar neo4j-col
- lections-3.1.0-BETA1.jar lucene-queryparser-5.5.0.jar
-Main-Class: reco_query.reco.Recommendation
+Class-Path: neo4j-lucene-upgrade-3.1.4.jar commons-lang3-3.3.2.jar neo
+ 4j-cypher-compiler-2.3-2.3.10.jar neo4j-lucene-index-3.1.4.jar neo4j-
+ import-tool-3.1.4.jar neo4j-cypher-3.1.4.jar neo4j-resource-3.1.4.jar
+  neo4j-unsafe-3.1.4.jar neo4j-cypher-frontend-2.3-2.3.10.jar neo4j-jm
+ x-3.1.4.jar parboiled-scala_2.11-1.1.7.jar caffeine-2.3.3.jar commons
+ -compress-1.12.jar opencsv-2.3.jar neo4j-codegen-3.1.4.jar neo4j-grap
+ h-matching-3.1.4.jar lucene-analyzers-common-5.5.0.jar neo4j-csv-3.1.
+ 4.jar lucene-codecs-5.5.0.jar neo4j-udc-3.1.4.jar neo4j-command-line-
+ 3.1.4.jar lucene-backward-codecs-5.5.0.jar concurrentlinkedhashmap-lr
+ u-1.4.2.jar neo4j-cypher-frontend-3.0-3.0.9.jar neo4j-cypher-compiler
+ -3.0-3.0.9.jar neo4j-collections-3.1.4.jar neo4j-consistency-check-3.
+ 1.4.jar scala-reflect-2.11.8.jar neo4j-common-3.1.4.jar lucene-core-5
+ .5.0.jar parboiled-core-1.1.7.jar neo4j-logging-3.1.4.jar neo4j-kerne
+ l-3.1.4.jar neo4j-graphdb-api-3.1.4.jar lombok-1.16.16.jar neo4j-cyph
+ er-frontend-3.1-3.1.4.jar neo4j-io-3.1.4.jar asm-5.0.4.jar neo4j-grap
+ h-algo-3.1.4.jar neo4j-primitive-collections-3.1.4.jar neo4j-3.1.4.ja
+ r neo4j-cypher-compiler-3.1-3.1.4.jar neo4j-dbms-3.1.4.jar scala-libr
+ ary-2.11.8.jar lucene-queryparser-5.5.0.jar
+Main-Class: reco_query.test
 

@@ -1,11 +1,24 @@
 package reco_query.entity;
 
 import reco_query.entity.entities.MethodEntity;
+import reco_query.factory.StaticValueFactory;
+
+import java.util.Arrays;
 
 /**
  * Created by liwp on 2017/5/7.
  */
 public abstract class ReboundEntity extends Entity{
+
+    @Override
+    public String urlPath() {
+        StringBuilder urlBuilder = new StringBuilder();
+        urlBuilder.append(StaticValueFactory.LUCENE_CORE_BASEURL);
+        String packageSegments[] = prefix().split("\\.");
+        Arrays.stream(packageSegments).forEach(packageName -> urlBuilder.append("/" + packageName));
+        urlBuilder.append(".html");
+        return urlBuilder.toString();
+    }
 
     @Override
     public String name() {

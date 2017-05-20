@@ -36,6 +36,7 @@ public class Recommendation {
         entityScores = Calculator.collectEntities(Calculator.calScoresFromQuerys(queryWords, wordToEntityMap));
         entityScores.forEach(entity -> {
             System.out.println(entity.prefix() + " " + entity.name() + " "+ entity.suffix());
+            System.out.println(entity.urlPath());
         });
         return entityScores;
     }
