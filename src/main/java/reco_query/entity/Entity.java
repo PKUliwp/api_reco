@@ -17,6 +17,9 @@ public abstract class Entity implements Comparable<Entity>{
     public String prefix() {return "";}
     public String suffix() {return "";}
     public String name() {return "";}
+    public String refSoTitle() {return "";}
+    public String refSoQuestionBody() {return "";}
+    public String refSoAnswerBody() {return "";}
 
     public String urlPath() {return "";}
 

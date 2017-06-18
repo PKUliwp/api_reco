@@ -3,11 +3,10 @@ package reco_context;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.util.*;
 import org.apache.commons.io.FileUtils;
+import reco_context.pool.TestMethodPool;
 
 
 /**
@@ -21,7 +20,12 @@ public class test {
 //            e.printStackTrace();
 //        }
         test2();
-
+        System.out.println("!!!!!!!");
+        TestMethodPool.methodBlocks.forEach(block -> {
+            block.forEach(methodEntity -> {
+                System.out.println(methodEntity.displayName());
+            });
+        });
 
 
 
@@ -58,7 +62,7 @@ public class test {
             @Override
             public void acceptAST(String sourceFilePath, CompilationUnit javaUnit) {
 
-                javaUnit.accept(new RecoASTVisitor());
+                javaUnit.accept(new RecoASTVisitor(RecoASTVisitor.Type.train));
 
             }
         }, null);
@@ -69,10 +73,36 @@ public class test {
         parser.setKind(ASTParser.K_COMPILATION_UNIT);
         Collection<File> javaFiles = FileUtils.listFiles(new File("/Users/liwp/Desktop/lucene/src"), new String[]{"java"}, true);
 
+        String inputPath = "/Users/liwp/Desktop/lucene/src/lucene-6.4.1/core/src/java/org/apache/lucene/index/BufferedUpdates.java";
+        String inputFolderPath = "/Users/liwp/Desktop/lucene/src/lucene-6.4.1/core/src/java/org/apache/lucene/index";
+
+        File file = new File(inputPath);
+        String all = "";
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            all = "";
+            String line = reader.readLine();
+            while(line != null) {
+                all += line + "\n";
+                line = reader.readLine();
+            }
+            System.out.println(all);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileWriter writer = new FileWriter(new File("/Users/liwp/Desktop/testSource.java"));
+            writer.write(all);
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         String[] srcPaths = new String[1];
-        srcPaths[0] = "/Users/liwp/Desktop/lucene/src/lucene-6.4.1/core/src/java/org/apache/lucene/index/BufferedUpdates.java";
+        srcPaths[0] = "/Users/liwp/Desktop/testSource.java";
         String[] srcFolderPaths = new String[1];
-        srcFolderPaths[0] = "/Users/liwp/Desktop/lucene/src/lucene-6.4.1/core/src/java/org/apache/lucene/index";
+        srcFolderPaths[0] = "/Users/liwp/Desktop";
 
         parser.setEnvironment(null, srcFolderPaths, null, true);
         parser.setResolveBindings(true);
@@ -88,7 +118,7 @@ public class test {
             @Override
             public void acceptAST(String sourceFilePath, CompilationUnit javaUnit) {
 
-                javaUnit.accept(new RecoASTVisitor());
+                javaUnit.accept(new RecoASTVisitor(RecoASTVisitor.Type.test));
 
             }
         }, null);

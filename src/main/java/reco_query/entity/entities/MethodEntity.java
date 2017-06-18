@@ -21,7 +21,16 @@ public class MethodEntity extends Entity {
     private String absoluteName;
     private String params;
     private String comment;
-    private StackoverflowEntity refSoEntity;
+    private StackoverflowEntity refSoEntity = null;
+
+    public void setAbsoluteName() {
+        StringBuilder sbuilder = new StringBuilder();
+        absoluteName = sbuilder
+                .append(belongTo)
+                .append(".")
+                .append(name)
+                .toString();
+    }
 
     @Override
     public String prefix() {
@@ -36,6 +45,21 @@ public class MethodEntity extends Entity {
     @Override
     public String name() {
         return name+"("+params +")";
+    }
+
+    @Override
+    public String refSoTitle() {
+        return refSoEntity == null ? "" : refSoEntity.getQuestionTitle();
+    }
+
+    @Override
+    public String refSoQuestionBody() {
+        return refSoEntity == null ? "" : refSoEntity.getQuestionBody();
+    }
+
+    @Override
+    public String refSoAnswerBody() {
+        return refSoEntity == null ? "" : refSoEntity.getAnswerBody();
     }
 
     @Override
