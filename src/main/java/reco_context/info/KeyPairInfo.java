@@ -17,11 +17,10 @@ public class KeyPairInfo {
 
     @Override
     public int hashCode() {
-        StringBuilder builder = new StringBuilder();
-        builder
+        StringBuilder builder = new StringBuilder()
                 .append(key.displayName())
                 .append('#')
-                .append(key.displayName());
+                .append(value.displayName());
         return builder.toString().hashCode();
     }
 }

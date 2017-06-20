@@ -3,10 +3,9 @@ package reco_context;
 import org.eclipse.jdt.core.dom.*;
 import reco_context.info.MethodInfo;
 import reco_context.pool.TestMethodPool;
-import reco_context.pool.TrainMethodPool;
+import reco_context.pool.MethodPool;
 import reco_query.entity.entities.MethodEntity;
 
-import java.lang.reflect.Method;
 import java.util.*;
 
 /**
@@ -51,7 +50,7 @@ public class RecoASTVisitor extends ASTVisitor{
             });
 
             if(type == Type.train) {
-                TrainMethodPool.methodBlocks.add(block);
+                MethodPool.methodBlocks.add(block);
             } else {
                 TestMethodPool.methodBlocks.add(block);
             }

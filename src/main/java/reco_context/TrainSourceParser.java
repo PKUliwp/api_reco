@@ -16,7 +16,7 @@ import java.util.*;
  */
 public class TrainSourceParser {
 
-    public static void test1() {
+    public static void parse() {
         ASTParser parser = ASTParser.newParser(AST.JLS8);
         parser.setKind(ASTParser.K_COMPILATION_UNIT);
         Collection<File> javaFiles = FileUtils.listFiles(new File("/Users/liwp/Desktop/lucene/src"), new String[]{"java"}, true);
